@@ -12,8 +12,8 @@ android {
         applicationId = "io.github.lilacio.keepawake"
         minSdk = 36
         targetSdk = 36
-        versionCode = 7
-        versionName = "2.5"
+        versionCode = 8
+        versionName = "2.6"
     }
 
     // Generates the locale list for the per-app language setting (Android 13+).
