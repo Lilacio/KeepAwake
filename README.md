@@ -25,25 +25,3 @@
 第一次使用时需要两个权限：「显示悬浮窗」（必需，用来保持亮屏）和通知权限（可选，不给也能常亮，只是看不到通知和超级岛）。
 
 > 为什么不用亮屏锁：HyperOS 会忽略后台 App 的 `SCREEN_BRIGHT_WAKE_LOCK`，App 退到后台几秒后锁就失效了；正在显示的窗口带的 `FLAG_KEEP_SCREEN_ON` 则始终有效。
-
-## 资源占用（HyperOS 实测）
-
-- 开启时：PSS 约 13～30MB，其中 Java 堆约 1.5MB。
-- 关闭后：服务、悬浮窗、通知全部释放，进程进入缓存空进程状态（CEM），系统随时可以回收。
-- 运行期间不轮询、不计时。被系统杀掉后不会自动重启（`START_NOT_STICKY`）。
-
-## 上超级岛的条件
-
-通知必须同时满足：常驻（ongoing）、有标题、没有自定义视图、不着色、渠道重要性高于 MIN，并在 extras 里设置 `android.requestPromotedOngoing = true`。`setShortCriticalText()` 设置的是胶囊里显示的短文字。系统接受后，通知会带上 `PROMOTED_ONGOING` 标记，可以用 `adb shell dumpsys notification` 查看。
-
-## 文件
-
-源码位于 `app/src/main/java/io/github/lilacio/keepawake/`。
-
-| 文件 | 作用 |
-| --- | --- |
-| `Awake.java` | 开关逻辑，刷新小部件和控制中心开关 |
-| `AwakeService.java` | 前台服务：保持亮屏的悬浮窗、通知、锁屏时自动退出 |
-| `ToggleActivity.java` | 透明中转页面，桌面图标和小部件点击都走这里；第一次使用时引导授予悬浮窗和通知权限 |
-| `AwakeWidget.java` + `res/layout/widget.xml` + `res/xml/awake_widget.xml` | 桌面小部件 |
-| `AwakeTile.java` | 控制中心开关 |
