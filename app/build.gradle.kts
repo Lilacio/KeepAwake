@@ -12,8 +12,14 @@ android {
         applicationId = "io.github.lilacio.keepawake"
         minSdk = 36
         targetSdk = 36
-        versionCode = 6
-        versionName = "2.4"
+        versionCode = 7
+        versionName = "2.5"
+    }
+
+    // Generates the locale list for the per-app language setting (Android 13+).
+    // The default (unqualified) resources are English, see res/resources.properties.
+    androidResources {
+        generateLocaleConfig = true
     }
 
     // Fixed release signing so rebuilds on any machine can update the installed app.

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">一键常亮</string>
+    <string name="widget_label">常亮开关</string>
+    <string name="tile_label">屏幕常亮</string>
+    <string name="state_on">常亮中</string>
+    <string name="state_off">常亮</string>
+    <string name="toast_on">已开启屏幕常亮（锁屏后自动关闭）</string>
+    <string name="toast_off">已关闭屏幕常亮</string>
+    <string name="channel_silent">屏幕常亮（静默）</string>
+    <string name="channel_island">屏幕常亮（超级岛）</string>
+    <string name="notif_title">屏幕常亮中</string>
+    <string name="notif_text">按电源键锁屏后自动关闭</string>
+    <string name="island_text">常亮</string>
+    <string name="need_overlay">请打开「显示悬浮窗」权限（用于保持亮屏），然后再点一次</string>
+    <string name="action_off">关闭</string>
+    <string name="action_to_island">显示到超级岛</string>
+    <string name="action_to_silent">改为静默</string>
+</resources>
