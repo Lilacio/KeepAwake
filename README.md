@@ -1,27 +1,31 @@
-# 一键常亮（KeepAwake）
+# KeepAwake
 
-个人用的 Android 小工具，Java 编写，没有第三方库，不联网。需要 Android 16 及以上（minSdk 36）。MIT 许可证。
+**English** | [简体中文](README.zh-CN.md)
 
-> ⚠️ 目前只在**小米 15（HyperOS，Android 17）**上测试过。其他品牌或系统上，超级岛 / 实时更新的显示效果、保持亮屏的方式可能不同。
+A small personal Android utility that keeps the screen on with one tap. Written in Java with no third-party libraries and no network access. Requires Android 16 or later (minSdk 36). MIT licensed.
 
-## 功能
+> ⚠️ Only tested on a **Xiaomi 15 (HyperOS, Android 17)**. On other brands or systems, how Super Island / Live Updates are displayed and how the screen is kept on may differ.
 
-有三个入口，作用相同：
+## Features
 
-| 入口 | 怎么加 |
+The app's UI is in Chinese; names in quotes below are what you will see on the device.
+
+There are three entry points, all doing the same thing:
+
+| Entry point | How to add it |
 | --- | --- |
-| 桌面图标「一键常亮」 | 装好后就有，点一下切换 |
-| 1×1 桌面小部件「常亮开关」 | 长按桌面 → 添加小部件 → 一键常亮 |
-| 控制中心开关「屏幕常亮」 | 下拉控制中心 → 编辑 → 把「屏幕常亮」拖进去 |
+| Launcher icon "一键常亮" | Available after install; tap to toggle |
+| 1×1 home-screen widget "常亮开关" | Long-press the home screen → Widgets → 一键常亮 |
+| Quick Settings tile "屏幕常亮" | Open Control Center → Edit → drag in "屏幕常亮" |
 
-- **开启**：启动前台服务 `AwakeService`，在屏幕可视区域外添加一个 1×1 透明、不可触摸的悬浮窗（`FLAG_KEEP_SCREEN_ON`）保持亮屏。窗口不和任何 App 的界面重叠，避免被银行、门禁类 App 判定为「界面被遮挡」。同时发一条常驻通知，显示已开启时长，带「关闭」和样式切换两个按钮。
-- **通知样式**（点通知里的按钮切换，选择会记住，卸载才会清掉）：
-  - **静默**（默认）：最低优先级渠道 `awake_silent`，不响、不弹横幅、不上岛。Android 会把前台服务通知提高到「低」优先级，个别系统可能因此在状态栏显示一个小图标；HyperOS 实测不显示。
-  - **超级岛**：普通优先级渠道 `awake`（无声音），申请「实时更新」，HyperOS 显示为超级岛胶囊「常亮」。
-- **关闭**：再点一次开关、点通知里的「关闭」、或者按电源键锁屏，任一方式都会让服务退出，移除悬浮窗和通知。
-- **不修改任何系统设置**：自动锁屏时间保持不变。
-- 系统会为悬浮窗额外显示一条最低优先级的「正在其他应用的上层显示内容」通知，可以在系统通知设置里关掉，不影响常亮。
+- **Turn on**: starts the foreground service `AwakeService`, which adds a 1×1 transparent, non-touchable overlay window with `FLAG_KEEP_SCREEN_ON` just outside the visible area. The window never overlaps any app, so banking or access-control apps won't consider the screen "obscured". An ongoing notification shows how long keep-awake has been on, with "Turn off" and style-switch buttons.
+- **Notification style** (switch with the notification button; the choice is remembered until uninstall):
+  - **Silent** (default): lowest-priority channel `awake_silent`. No sound, no heads-up banner, not on Super Island. Android raises foreground-service notifications to "low" priority, so some systems may show a small status bar icon; HyperOS does not.
+  - **Super Island**: default-priority channel `awake` (still silent) that requests a Live Update; HyperOS shows it as a "常亮" Super Island pill.
+- **Turn off**: tap any toggle again, tap "Turn off" in the notification, or press the power button. Any of these stops the service and removes the overlay window and the notification.
+- **No system settings are changed**: the screen timeout stays as you set it.
+- The system shows an extra lowest-priority notification for the overlay ("… is displaying over other apps"). You can turn it off in the system notification settings; keep-awake is not affected.
 
-第一次使用时需要两个权限：「显示悬浮窗」（必需，用来保持亮屏）和通知权限（可选，不给也能常亮，只是看不到通知和超级岛）。
+Two permissions are needed on first use: "Display over other apps" (required, keeps the screen on) and notifications (optional; keep-awake still works without it, you just won't see the notification or the Super Island).
 
-> 为什么不用亮屏锁：HyperOS 会忽略后台 App 的 `SCREEN_BRIGHT_WAKE_LOCK`，App 退到后台几秒后锁就失效了；正在显示的窗口带的 `FLAG_KEEP_SCREEN_ON` 则始终有效。
+> Why not a wake lock: HyperOS ignores `SCREEN_BRIGHT_WAKE_LOCK` from background apps, so the lock stops working a few seconds after the app leaves the foreground. `FLAG_KEEP_SCREEN_ON` on a shown window is always honoured.
