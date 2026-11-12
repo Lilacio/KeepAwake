@@ -1,0 +1,18 @@
+# Build output
+.gradle/
+build/
+app/build/
+*.apk
+*.aab
+
+# Local machine config
+local.properties
+.idea/
+*.iml
+.DS_Store
+
+# Signing: kept locally only, never committed
+keystore/
+*.jks
+*.keystore
+keystore.properties

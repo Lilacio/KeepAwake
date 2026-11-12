@@ -1,0 +1,6 @@
+# Store LF in the repo; gradlew must be LF to run on Linux, .bat files use CRLF
+* text=auto eol=lf
+*.bat text eol=crlf
+*.jar binary
+*.jks binary
+*.png binary
